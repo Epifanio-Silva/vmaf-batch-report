@@ -2,6 +2,8 @@
 
 A command-line tool that runs VMAF, PSNR, and SSIM quality measurements against a batch of encoded video files and generates CSV, Markdown, and HTML reports.
 
+**[View live sample report →](https://epifanio-silva.github.io/vmaf-batch-report/sample_output/vmaf_report.html)**
+
 ---
 
 ## Requirements
