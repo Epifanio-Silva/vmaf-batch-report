@@ -1,0 +1,27 @@
+# Video and media files
+*.mov
+*.mp4
+*.mxf
+*.mts
+*.m4v
+*.mkv
+
+# Generated report output directories (keep only sample_output)
+reports*/
+
+# Raw VMAF/PSNR/SSIM artifacts inside sample_output
+sample_output/*_vmaf_*.json
+sample_output/*_psnr_*.log
+sample_output/*_ssim_*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+.listing
+
+# Backup files
+backup/

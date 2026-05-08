@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VMAF Batch Report</title>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 24px;
+        background: #f7f7f7;
+        color: #222;
+    }
+
+    h1, h2 {
+        margin-bottom: 8px;
+    }
+
+    .card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 18px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(120px, 1fr));
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .summary-box {
+        border-radius: 8px;
+        padding: 12px;
+        background: #f0f0f0;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .summary-box.pass {
+        background: #d7f5df;
+        color: #145c2e;
+    }
+
+    .summary-box.warn {
+        background: #fff3cd;
+        color: #7a5a00;
+    }
+
+    .summary-box.fail {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        font-size: 14px;
+    }
+
+    th {
+        background: #333;
+        color: #fff;
+        padding: 8px;
+        text-align: left;
+        position: sticky;
+        top: 0;
+    }
+
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        vertical-align: top;
+    }
+
+    tr.pass {
+        background: #eaf8ee;
+    }
+
+    tr.warn {
+        background: #fff8e1;
+    }
+
+    tr.fail {
+        background: #fdebed;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .badge.pass {
+        background: #198754;
+        color: white;
+    }
+
+    .badge.warn {
+        background: #ffc107;
+        color: #222;
+    }
+
+    .badge.fail {
+        background: #dc3545;
+        color: white;
+    }
+
+    .mono {
+        font-family: Consolas, Monaco, monospace;
+    }
+
+    .warning-list li {
+        margin-bottom: 6px;
+    }
+
+    .chart-preview {
+        width: 100%;
+        max-width: 1000px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fff;
+        margin-top: 8px;
+    }
+
+    .thumb-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        margin-top: 10px;
+    }
+
+    .thumb-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 8px;
+        background: #fff;
+    }
+
+    .thumb-card img {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid #eee;
+    }
+
+    .thumb-meta {
+        font-size: 12px;
+        margin-top: 6px;
+        color: #333;
+    }
+</style>
+</head>
+<body>
+
+<h1>VMAF Batch Report</h1>
+<div class="card">
+<h2>Summary</h2>
+<div class="summary-grid">
+<div class="summary-box">Total Tests<br>18</div>
+<div class="summary-box pass">PASS<br>10</div>
+<div class="summary-box warn">WARN<br>5</div>
+<div class="summary-box fail">FAIL<br>3</div>
+<div class="summary-box warn">Precheck WARN<br>0</div>
+<div class="summary-box">Runs<br>3</div>
+<div class="summary-box">Profiles<br>3</div>
+</div>
+</div>
+<div class="card">
+<h2>Source Info</h2>
+<table>
+<tr><th>Source</th><th>Codec</th><th>Resolution</th><th>Frame Rate</th><th>Duration</th></tr>
+<tr><td class='mono'>meridian_15s_cleanref.mp4</td><td>h264</td><td>3840x2160</td><td>60000/1001</td><td>14.998s</td></tr>
+</table>
+</div>
+<div class="card">
+<h2>Quality Items to Review</h2>
+<ul class='warning-list'>
+<li><strong>h264_baseline / encoded_1080p.mp4</strong> (upscaled_3840x2160): WARN — Mean VMAF=86.139, Min VMAF=76.870. Good; inspect visually; Low frame warning: min VMAF=76.870</li>
+<li><strong>h264_baseline / encoded_2160p.mp4</strong> (native): WARN — Mean VMAF=89.429, Min VMAF=85.036. Good; inspect visually</li>
+<li><strong>h264_baseline / encoded_2160p.mp4</strong> (upscaled_3840x2160): WARN — Mean VMAF=89.429, Min VMAF=85.036. Good; inspect visually</li>
+<li><strong>h264_baseline / encoded_720p.mp4</strong> (upscaled_3840x2160): FAIL — Mean VMAF=80.368, Min VMAF=65.168. Good; inspect visually; CRITICAL low frame detected: min VMAF=65.168; Large quality swing: mean-min delta=15.200</li>
+<li><strong>hevc_low / encoded_1080p.mp4</strong> (upscaled_3840x2160): WARN — Mean VMAF=85.798, Min VMAF=71.397. Good; inspect visually; Low frame warning: min VMAF=71.397</li>
+<li><strong>hevc_low / encoded_720p.mp4</strong> (upscaled_3840x2160): FAIL — Mean VMAF=78.329, Min VMAF=61.785. Noticeable degradation; CRITICAL low frame detected: min VMAF=61.785; Large quality swing: mean-min delta=16.544</li>
+<li><strong>hevc_medium / encoded_1080p.mp4</strong> (upscaled_3840x2160): WARN — Mean VMAF=87.502, Min VMAF=71.396. Good; inspect visually; Low frame warning: min VMAF=71.396; Large quality swing: mean-min delta=16.106</li>
+<li><strong>hevc_medium / encoded_720p.mp4</strong> (upscaled_3840x2160): FAIL — Mean VMAF=81.026, Min VMAF=64.478. Good; inspect visually; CRITICAL low frame detected: min VMAF=64.478; Large quality swing: mean-min delta=16.548</li>
+</ul>
+</div>
+<div class="card">
+<h2>Results</h2>
+<table>
+<tr><th>Run</th><th>Profile</th><th>File</th><th>Codec</th><th>Resolution</th><th>Bitrate Mbps</th><th>Duration</th><th>Test</th><th>Precheck</th><th>Quality</th><th>Mean VMAF</th><th>Min VMAF</th><th>Max VMAF</th><th>PSNR Avg</th><th>SSIM All</th><th>Quality/Mbps</th><th>Savings</th><th>VMAF Δ</th><th>Worst Time</th><th>Chart</th><th>Notes</th></tr>
+<tr class='pass'>
+<td>h264_baseline</td>
+<td>1080p</td>
+<td class='mono'>encoded_1080p.mp4</td>
+<td>h264</td>
+<td>1920x1080</td>
+<td>4.791</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>93.564</td>
+<td>87.605</td>
+<td>96.386</td>
+<td>49.418</td>
+<td>0.991431</td>
+<td>19.529</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td>00:00.250</td>
+<td><a href='charts/h264_baseline_encoded_1080p_native_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='warn'>
+<td>h264_baseline</td>
+<td>1080p</td>
+<td class='mono'>encoded_1080p.mp4</td>
+<td>h264</td>
+<td>1920x1080</td>
+<td>4.791</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge warn'>WARN</span></td>
+<td>86.139</td>
+<td>76.870</td>
+<td>92.572</td>
+<td>48.449</td>
+<td>0.990091</td>
+<td>17.979</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td>00:00.217</td>
+<td><a href='charts/h264_baseline_encoded_1080p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Good; inspect visually; Low frame warning: min VMAF=76.870</td>
+</tr>
+<tr class='warn'>
+<td>h264_baseline</td>
+<td>2160p</td>
+<td class='mono'>encoded_2160p.mp4</td>
+<td>h264</td>
+<td>3840x2160</td>
+<td>8.57</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge warn'>WARN</span></td>
+<td>89.429</td>
+<td>85.036</td>
+<td>95.082</td>
+<td>49.299</td>
+<td>0.991281</td>
+<td>10.435</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td>00:00.384</td>
+<td><a href='charts/h264_baseline_encoded_2160p_native_vmaf.svg'>chart</a></td>
+<td>Good; inspect visually</td>
+</tr>
+<tr class='warn'>
+<td>h264_baseline</td>
+<td>2160p</td>
+<td class='mono'>encoded_2160p.mp4</td>
+<td>h264</td>
+<td>3840x2160</td>
+<td>8.57</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge warn'>WARN</span></td>
+<td>89.429</td>
+<td>85.036</td>
+<td>95.082</td>
+<td>49.299</td>
+<td>0.991281</td>
+<td>10.435</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td>00:00.384</td>
+<td><a href='charts/h264_baseline_encoded_2160p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Good; inspect visually</td>
+</tr>
+<tr class='pass'>
+<td>h264_baseline</td>
+<td>720p</td>
+<td class='mono'>encoded_720p.mp4</td>
+<td>h264</td>
+<td>1280x720</td>
+<td>2.674</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>94.600</td>
+<td>86.809</td>
+<td>96.837</td>
+<td>49.389</td>
+<td>0.991719</td>
+<td>35.378</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td>00:00.150</td>
+<td><a href='charts/h264_baseline_encoded_720p_native_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='fail'>
+<td>h264_baseline</td>
+<td>720p</td>
+<td class='mono'>encoded_720p.mp4</td>
+<td>h264</td>
+<td>1280x720</td>
+<td>2.674</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge fail'>FAIL</span></td>
+<td>80.368</td>
+<td>65.168</td>
+<td>87.319</td>
+<td>47.523</td>
+<td>0.988866</td>
+<td>30.056</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td>00:00.284</td>
+<td><a href='charts/h264_baseline_encoded_720p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Good; inspect visually; CRITICAL low frame detected: min VMAF=65.168; Large quality swing: mean-min delta=15.200</td>
+</tr>
+<tr class='pass'>
+<td>hevc_low</td>
+<td>1080p</td>
+<td class='mono'>encoded_1080p.mp4</td>
+<td>hevc</td>
+<td>1920x1080</td>
+<td>1.874</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>93.162</td>
+<td>83.348</td>
+<td>96.067</td>
+<td>49.477</td>
+<td>0.991689</td>
+<td>49.713</td>
+<td>60.9%</td>
+<td>-0.402</td>
+<td>00:00.150</td>
+<td><a href='charts/hevc_low_encoded_1080p_native_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='warn'>
+<td>hevc_low</td>
+<td>1080p</td>
+<td class='mono'>encoded_1080p.mp4</td>
+<td>hevc</td>
+<td>1920x1080</td>
+<td>1.874</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge warn'>WARN</span></td>
+<td>85.798</td>
+<td>71.397</td>
+<td>92.143</td>
+<td>48.476</td>
+<td>0.990612</td>
+<td>45.783</td>
+<td>60.9%</td>
+<td>-0.341</td>
+<td>00:00.150</td>
+<td><a href='charts/hevc_low_encoded_1080p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Good; inspect visually; Low frame warning: min VMAF=71.397</td>
+</tr>
+<tr class='pass'>
+<td>hevc_low</td>
+<td>2160p</td>
+<td class='mono'>encoded_2160p.mp4</td>
+<td>hevc</td>
+<td>3840x2160</td>
+<td>3.308</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>90.160</td>
+<td>80.694</td>
+<td>94.980</td>
+<td>49.212</td>
+<td>0.991389</td>
+<td>27.255</td>
+<td>61.4%</td>
+<td>0.731</td>
+<td>00:00.100</td>
+<td><a href='charts/hevc_low_encoded_2160p_native_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='pass'>
+<td>hevc_low</td>
+<td>2160p</td>
+<td class='mono'>encoded_2160p.mp4</td>
+<td>hevc</td>
+<td>3840x2160</td>
+<td>3.308</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>90.160</td>
+<td>80.694</td>
+<td>94.980</td>
+<td>49.212</td>
+<td>0.991389</td>
+<td>27.255</td>
+<td>61.4%</td>
+<td>0.731</td>
+<td>00:00.100</td>
+<td><a href='charts/hevc_low_encoded_2160p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='pass'>
+<td>hevc_low</td>
+<td>720p</td>
+<td class='mono'>encoded_720p.mp4</td>
+<td>hevc</td>
+<td>1280x720</td>
+<td>0.935</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>93.493</td>
+<td>84.450</td>
+<td>96.209</td>
+<td>49.105</td>
+<td>0.991449</td>
+<td>99.993</td>
+<td>65.0%</td>
+<td>-1.106</td>
+<td>00:00.067</td>
+<td><a href='charts/hevc_low_encoded_720p_native_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='fail'>
+<td>hevc_low</td>
+<td>720p</td>
+<td class='mono'>encoded_720p.mp4</td>
+<td>hevc</td>
+<td>1280x720</td>
+<td>0.935</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge fail'>FAIL</span></td>
+<td>78.329</td>
+<td>61.785</td>
+<td>85.927</td>
+<td>47.294</td>
+<td>0.988987</td>
+<td>83.774</td>
+<td>65.0%</td>
+<td>-2.039</td>
+<td>00:00.067</td>
+<td><a href='charts/hevc_low_encoded_720p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Noticeable degradation; CRITICAL low frame detected: min VMAF=61.785; Large quality swing: mean-min delta=16.544</td>
+</tr>
+<tr class='pass'>
+<td>hevc_medium</td>
+<td>1080p</td>
+<td class='mono'>encoded_1080p.mp4</td>
+<td>hevc</td>
+<td>1920x1080</td>
+<td>3.016</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>94.116</td>
+<td>83.346</td>
+<td>96.566</td>
+<td>50.151</td>
+<td>0.992561</td>
+<td>31.206</td>
+<td>37.0%</td>
+<td>0.552</td>
+<td>00:00.150</td>
+<td><a href='charts/hevc_medium_encoded_1080p_native_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='warn'>
+<td>hevc_medium</td>
+<td>1080p</td>
+<td class='mono'>encoded_1080p.mp4</td>
+<td>hevc</td>
+<td>1920x1080</td>
+<td>3.016</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge warn'>WARN</span></td>
+<td>87.502</td>
+<td>71.396</td>
+<td>92.807</td>
+<td>49.019</td>
+<td>0.991301</td>
+<td>29.012</td>
+<td>37.0%</td>
+<td>1.363</td>
+<td>00:00.150</td>
+<td><a href='charts/hevc_medium_encoded_1080p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Good; inspect visually; Low frame warning: min VMAF=71.396; Large quality swing: mean-min delta=16.106</td>
+</tr>
+<tr class='pass'>
+<td>hevc_medium</td>
+<td>2160p</td>
+<td class='mono'>encoded_2160p.mp4</td>
+<td>hevc</td>
+<td>3840x2160</td>
+<td>5.689</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>91.986</td>
+<td>81.396</td>
+<td>95.674</td>
+<td>49.948</td>
+<td>0.992241</td>
+<td>16.169</td>
+<td>33.6%</td>
+<td>2.557</td>
+<td>00:00.083</td>
+<td><a href='charts/hevc_medium_encoded_2160p_native_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='pass'>
+<td>hevc_medium</td>
+<td>2160p</td>
+<td class='mono'>encoded_2160p.mp4</td>
+<td>hevc</td>
+<td>3840x2160</td>
+<td>5.689</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>91.986</td>
+<td>81.396</td>
+<td>95.674</td>
+<td>49.948</td>
+<td>0.992241</td>
+<td>16.169</td>
+<td>33.6%</td>
+<td>2.557</td>
+<td>00:00.083</td>
+<td><a href='charts/hevc_medium_encoded_2160p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='pass'>
+<td>hevc_medium</td>
+<td>720p</td>
+<td class='mono'>encoded_720p.mp4</td>
+<td>hevc</td>
+<td>1280x720</td>
+<td>1.697</td>
+<td>14.998</td>
+<td>native</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge pass'>PASS</span></td>
+<td>94.618</td>
+<td>85.588</td>
+<td>96.789</td>
+<td>50.061</td>
+<td>0.992708</td>
+<td>55.756</td>
+<td>36.5%</td>
+<td>0.019</td>
+<td>00:00.100</td>
+<td><a href='charts/hevc_medium_encoded_720p_native_vmaf.svg'>chart</a></td>
+<td>Very good</td>
+</tr>
+<tr class='fail'>
+<td>hevc_medium</td>
+<td>720p</td>
+<td class='mono'>encoded_720p.mp4</td>
+<td>hevc</td>
+<td>1280x720</td>
+<td>1.697</td>
+<td>14.998</td>
+<td>upscaled_3840x2160</td>
+<td><span class='badge pass'>PASS</span></td>
+<td><span class='badge fail'>FAIL</span></td>
+<td>81.026</td>
+<td>64.478</td>
+<td>87.208</td>
+<td>47.933</td>
+<td>0.989939</td>
+<td>47.746</td>
+<td>36.5%</td>
+<td>0.657</td>
+<td>00:00.100</td>
+<td><a href='charts/hevc_medium_encoded_720p_upscaled_3840x2160_vmaf.svg'>chart</a></td>
+<td>Good; inspect visually; CRITICAL low frame detected: min VMAF=64.478; Large quality swing: mean-min delta=16.548</td>
+</tr>
+</table>
+</div>
+<div class="card">
+<h2>Visual Debug: VMAF Over Time and Worst Frames</h2>
+<h3>h264_baseline / encoded_1080p.mp4 — native</h3>
+<img class='chart-preview' src='charts/h264_baseline_encoded_1080p_native_vmaf.svg' alt='VMAF chart for encoded_1080p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_native_frame_15_vmaf_87.605.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 15<br>Time: 00:00.250<br>VMAF: 87.605</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_native_frame_9_vmaf_87.610.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 87.610</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_native_frame_13_vmaf_87.651.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 13<br>Time: 00:00.217<br>VMAF: 87.651</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_native_frame_14_vmaf_87.865.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 14<br>Time: 00:00.234<br>VMAF: 87.865</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_native_frame_10_vmaf_87.873.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 10<br>Time: 00:00.167<br>VMAF: 87.873</div>
+</div>
+</div>
+<h3>h264_baseline / encoded_1080p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/h264_baseline_encoded_1080p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_1080p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_upscaled_3840x2160_frame_13_vmaf_76.870.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 13<br>Time: 00:00.217<br>VMAF: 76.870</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_upscaled_3840x2160_frame_9_vmaf_76.942.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 76.942</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_upscaled_3840x2160_frame_17_vmaf_77.014.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 17<br>Time: 00:00.284<br>VMAF: 77.014</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_upscaled_3840x2160_frame_15_vmaf_77.046.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 15<br>Time: 00:00.250<br>VMAF: 77.046</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_1080p_upscaled_3840x2160_frame_14_vmaf_77.133.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 14<br>Time: 00:00.234<br>VMAF: 77.133</div>
+</div>
+</div>
+<h3>h264_baseline / encoded_2160p.mp4 — native</h3>
+<img class='chart-preview' src='charts/h264_baseline_encoded_2160p_native_vmaf.svg' alt='VMAF chart for encoded_2160p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_native_frame_23_vmaf_85.036.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 23<br>Time: 00:00.384<br>VMAF: 85.036</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_native_frame_13_vmaf_85.222.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 13<br>Time: 00:00.217<br>VMAF: 85.222</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_native_frame_7_vmaf_85.237.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 85.237</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_native_frame_400_vmaf_85.504.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 400<br>Time: 00:06.673<br>VMAF: 85.504</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_native_frame_15_vmaf_85.610.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 15<br>Time: 00:00.250<br>VMAF: 85.610</div>
+</div>
+</div>
+<h3>h264_baseline / encoded_2160p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/h264_baseline_encoded_2160p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_2160p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_upscaled_3840x2160_frame_23_vmaf_85.036.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 23<br>Time: 00:00.384<br>VMAF: 85.036</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_upscaled_3840x2160_frame_13_vmaf_85.222.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 13<br>Time: 00:00.217<br>VMAF: 85.222</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_upscaled_3840x2160_frame_7_vmaf_85.237.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 85.237</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_upscaled_3840x2160_frame_400_vmaf_85.504.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 400<br>Time: 00:06.673<br>VMAF: 85.504</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_2160p_upscaled_3840x2160_frame_15_vmaf_85.610.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 15<br>Time: 00:00.250<br>VMAF: 85.610</div>
+</div>
+</div>
+<h3>h264_baseline / encoded_720p.mp4 — native</h3>
+<img class='chart-preview' src='charts/h264_baseline_encoded_720p_native_vmaf.svg' alt='VMAF chart for encoded_720p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_native_frame_9_vmaf_86.809.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 86.809</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_native_frame_2_vmaf_86.872.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 2<br>Time: 00:00.033<br>VMAF: 86.872</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_native_frame_13_vmaf_86.899.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 13<br>Time: 00:00.217<br>VMAF: 86.899</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_native_frame_11_vmaf_87.018.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 11<br>Time: 00:00.184<br>VMAF: 87.018</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_native_frame_17_vmaf_87.074.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 17<br>Time: 00:00.284<br>VMAF: 87.074</div>
+</div>
+</div>
+<h3>h264_baseline / encoded_720p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/h264_baseline_encoded_720p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_720p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_upscaled_3840x2160_frame_17_vmaf_65.168.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 17<br>Time: 00:00.284<br>VMAF: 65.168</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_upscaled_3840x2160_frame_19_vmaf_65.254.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 19<br>Time: 00:00.317<br>VMAF: 65.254</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_upscaled_3840x2160_frame_15_vmaf_65.338.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 15<br>Time: 00:00.250<br>VMAF: 65.338</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_upscaled_3840x2160_frame_13_vmaf_65.348.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 13<br>Time: 00:00.217<br>VMAF: 65.348</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/h264_baseline_encoded_720p_upscaled_3840x2160_frame_9_vmaf_65.511.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 65.511</div>
+</div>
+</div>
+<h3>hevc_low / encoded_1080p.mp4 — native</h3>
+<img class='chart-preview' src='charts/hevc_low_encoded_1080p_native_vmaf.svg' alt='VMAF chart for encoded_1080p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_native_frame_9_vmaf_83.348.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 83.348</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_native_frame_4_vmaf_83.629.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 83.629</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_native_frame_5_vmaf_83.655.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 83.655</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_native_frame_3_vmaf_83.848.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 83.848</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_native_frame_6_vmaf_84.027.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 84.027</div>
+</div>
+</div>
+<h3>hevc_low / encoded_1080p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/hevc_low_encoded_1080p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_1080p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_upscaled_3840x2160_frame_9_vmaf_71.397.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 71.397</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_upscaled_3840x2160_frame_5_vmaf_72.020.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 72.020</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_upscaled_3840x2160_frame_4_vmaf_72.140.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 72.140</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_upscaled_3840x2160_frame_7_vmaf_72.522.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 72.522</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_1080p_upscaled_3840x2160_frame_3_vmaf_72.608.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 72.608</div>
+</div>
+</div>
+<h3>hevc_low / encoded_2160p.mp4 — native</h3>
+<img class='chart-preview' src='charts/hevc_low_encoded_2160p_native_vmaf.svg' alt='VMAF chart for encoded_2160p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_native_frame_6_vmaf_80.694.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 80.694</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_native_frame_7_vmaf_80.913.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 80.913</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_native_frame_5_vmaf_80.948.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 80.948</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_native_frame_9_vmaf_81.013.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 81.013</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_native_frame_4_vmaf_81.893.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 81.893</div>
+</div>
+</div>
+<h3>hevc_low / encoded_2160p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/hevc_low_encoded_2160p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_2160p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_upscaled_3840x2160_frame_6_vmaf_80.694.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 80.694</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_upscaled_3840x2160_frame_7_vmaf_80.913.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 80.913</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_upscaled_3840x2160_frame_5_vmaf_80.948.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 80.948</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_upscaled_3840x2160_frame_9_vmaf_81.013.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 81.013</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_2160p_upscaled_3840x2160_frame_4_vmaf_81.893.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 81.893</div>
+</div>
+</div>
+<h3>hevc_low / encoded_720p.mp4 — native</h3>
+<img class='chart-preview' src='charts/hevc_low_encoded_720p_native_vmaf.svg' alt='VMAF chart for encoded_720p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_native_frame_4_vmaf_84.450.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 84.450</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_native_frame_5_vmaf_84.633.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 84.633</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_native_frame_6_vmaf_84.904.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 84.904</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_native_frame_3_vmaf_85.130.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 85.130</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_native_frame_9_vmaf_85.400.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 85.400</div>
+</div>
+</div>
+<h3>hevc_low / encoded_720p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/hevc_low_encoded_720p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_720p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_upscaled_3840x2160_frame_4_vmaf_61.785.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 61.785</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_upscaled_3840x2160_frame_5_vmaf_61.843.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 61.843</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_upscaled_3840x2160_frame_6_vmaf_63.065.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 63.065</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_upscaled_3840x2160_frame_3_vmaf_63.708.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 63.708</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_low_encoded_720p_upscaled_3840x2160_frame_7_vmaf_64.055.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 64.055</div>
+</div>
+</div>
+<h3>hevc_medium / encoded_1080p.mp4 — native</h3>
+<img class='chart-preview' src='charts/hevc_medium_encoded_1080p_native_vmaf.svg' alt='VMAF chart for encoded_1080p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_native_frame_9_vmaf_83.346.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 83.346</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_native_frame_4_vmaf_83.629.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 83.629</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_native_frame_5_vmaf_83.655.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 83.655</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_native_frame_3_vmaf_83.848.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 83.848</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_native_frame_6_vmaf_84.027.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 84.027</div>
+</div>
+</div>
+<h3>hevc_medium / encoded_1080p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/hevc_medium_encoded_1080p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_1080p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_upscaled_3840x2160_frame_9_vmaf_71.396.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 71.396</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_upscaled_3840x2160_frame_5_vmaf_72.020.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 72.020</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_upscaled_3840x2160_frame_4_vmaf_72.140.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 72.140</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_upscaled_3840x2160_frame_7_vmaf_72.522.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 72.522</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_1080p_upscaled_3840x2160_frame_3_vmaf_72.608.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 72.608</div>
+</div>
+</div>
+<h3>hevc_medium / encoded_2160p.mp4 — native</h3>
+<img class='chart-preview' src='charts/hevc_medium_encoded_2160p_native_vmaf.svg' alt='VMAF chart for encoded_2160p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_native_frame_5_vmaf_81.396.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 81.396</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_native_frame_7_vmaf_81.824.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 81.824</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_native_frame_4_vmaf_81.893.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 81.893</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_native_frame_6_vmaf_82.069.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 82.069</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_native_frame_3_vmaf_82.632.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 82.632</div>
+</div>
+</div>
+<h3>hevc_medium / encoded_2160p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/hevc_medium_encoded_2160p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_2160p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_upscaled_3840x2160_frame_5_vmaf_81.396.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 81.396</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_upscaled_3840x2160_frame_7_vmaf_81.824.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 81.824</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_upscaled_3840x2160_frame_4_vmaf_81.893.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 4<br>Time: 00:00.067<br>VMAF: 81.893</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_upscaled_3840x2160_frame_6_vmaf_82.069.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 82.069</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_2160p_upscaled_3840x2160_frame_3_vmaf_82.632.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 82.632</div>
+</div>
+</div>
+<h3>hevc_medium / encoded_720p.mp4 — native</h3>
+<img class='chart-preview' src='charts/hevc_medium_encoded_720p_native_vmaf.svg' alt='VMAF chart for encoded_720p.mp4 native'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_native_frame_6_vmaf_85.588.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 85.588</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_native_frame_3_vmaf_85.862.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 85.862</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_native_frame_5_vmaf_85.879.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 85.879</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_native_frame_2_vmaf_86.141.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 2<br>Time: 00:00.033<br>VMAF: 86.141</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_native_frame_7_vmaf_86.205.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 86.205</div>
+</div>
+</div>
+<h3>hevc_medium / encoded_720p.mp4 — upscaled_3840x2160</h3>
+<img class='chart-preview' src='charts/hevc_medium_encoded_720p_upscaled_3840x2160_vmaf.svg' alt='VMAF chart for encoded_720p.mp4 upscaled_3840x2160'>
+<div class='thumb-grid'>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_upscaled_3840x2160_frame_6_vmaf_64.478.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 6<br>Time: 00:00.100<br>VMAF: 64.478</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_upscaled_3840x2160_frame_3_vmaf_64.907.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 3<br>Time: 00:00.050<br>VMAF: 64.907</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_upscaled_3840x2160_frame_7_vmaf_65.001.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 7<br>Time: 00:00.117<br>VMAF: 65.001</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_upscaled_3840x2160_frame_5_vmaf_65.018.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 5<br>Time: 00:00.083<br>VMAF: 65.018</div>
+</div>
+<div class='thumb-card'>
+<img src='thumbnails/hevc_medium_encoded_720p_upscaled_3840x2160_frame_9_vmaf_65.258.jpg' alt='Worst frame thumbnail'>
+<div class='thumb-meta'>Frame: 9<br>Time: 00:00.150<br>VMAF: 65.258</div>
+</div>
+</div>
+</div>
+<div class="card">
+<h2>Profile Comparison Summary</h2>
+<h3>1080p</h3>
+<table>
+<tr><th>Run</th><th>Test</th><th>Codec</th><th>Bitrate Mbps</th><th>VMAF Mean</th><th>Quality/Mbps</th><th>Savings</th><th>VMAF Δ</th><th>Quality</th></tr>
+<tr class='pass'>
+<td>h264_baseline</td>
+<td>native</td>
+<td>h264</td>
+<td>4.791</td>
+<td>93.564</td>
+<td>19.529</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='pass'>
+<td>hevc_low</td>
+<td>native</td>
+<td>hevc</td>
+<td>1.874</td>
+<td>93.162</td>
+<td>49.713</td>
+<td>60.9%</td>
+<td>-0.402</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='pass'>
+<td>hevc_medium</td>
+<td>native</td>
+<td>hevc</td>
+<td>3.016</td>
+<td>94.116</td>
+<td>31.206</td>
+<td>37.0%</td>
+<td>0.552</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='warn'>
+<td>h264_baseline</td>
+<td>upscaled_3840x2160</td>
+<td>h264</td>
+<td>4.791</td>
+<td>86.139</td>
+<td>17.979</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td><span class='badge warn'>WARN</span></td>
+</tr>
+<tr class='warn'>
+<td>hevc_low</td>
+<td>upscaled_3840x2160</td>
+<td>hevc</td>
+<td>1.874</td>
+<td>85.798</td>
+<td>45.783</td>
+<td>60.9%</td>
+<td>-0.341</td>
+<td><span class='badge warn'>WARN</span></td>
+</tr>
+<tr class='warn'>
+<td>hevc_medium</td>
+<td>upscaled_3840x2160</td>
+<td>hevc</td>
+<td>3.016</td>
+<td>87.502</td>
+<td>29.012</td>
+<td>37.0%</td>
+<td>1.363</td>
+<td><span class='badge warn'>WARN</span></td>
+</tr>
+</table>
+<h3>2160p</h3>
+<table>
+<tr><th>Run</th><th>Test</th><th>Codec</th><th>Bitrate Mbps</th><th>VMAF Mean</th><th>Quality/Mbps</th><th>Savings</th><th>VMAF Δ</th><th>Quality</th></tr>
+<tr class='warn'>
+<td>h264_baseline</td>
+<td>native</td>
+<td>h264</td>
+<td>8.57</td>
+<td>89.429</td>
+<td>10.435</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td><span class='badge warn'>WARN</span></td>
+</tr>
+<tr class='pass'>
+<td>hevc_low</td>
+<td>native</td>
+<td>hevc</td>
+<td>3.308</td>
+<td>90.160</td>
+<td>27.255</td>
+<td>61.4%</td>
+<td>0.731</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='pass'>
+<td>hevc_medium</td>
+<td>native</td>
+<td>hevc</td>
+<td>5.689</td>
+<td>91.986</td>
+<td>16.169</td>
+<td>33.6%</td>
+<td>2.557</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='warn'>
+<td>h264_baseline</td>
+<td>upscaled_3840x2160</td>
+<td>h264</td>
+<td>8.57</td>
+<td>89.429</td>
+<td>10.435</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td><span class='badge warn'>WARN</span></td>
+</tr>
+<tr class='pass'>
+<td>hevc_low</td>
+<td>upscaled_3840x2160</td>
+<td>hevc</td>
+<td>3.308</td>
+<td>90.160</td>
+<td>27.255</td>
+<td>61.4%</td>
+<td>0.731</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='pass'>
+<td>hevc_medium</td>
+<td>upscaled_3840x2160</td>
+<td>hevc</td>
+<td>5.689</td>
+<td>91.986</td>
+<td>16.169</td>
+<td>33.6%</td>
+<td>2.557</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+</table>
+<h3>720p</h3>
+<table>
+<tr><th>Run</th><th>Test</th><th>Codec</th><th>Bitrate Mbps</th><th>VMAF Mean</th><th>Quality/Mbps</th><th>Savings</th><th>VMAF Δ</th><th>Quality</th></tr>
+<tr class='pass'>
+<td>h264_baseline</td>
+<td>native</td>
+<td>h264</td>
+<td>2.674</td>
+<td>94.600</td>
+<td>35.378</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='pass'>
+<td>hevc_low</td>
+<td>native</td>
+<td>hevc</td>
+<td>0.935</td>
+<td>93.493</td>
+<td>99.993</td>
+<td>65.0%</td>
+<td>-1.106</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='pass'>
+<td>hevc_medium</td>
+<td>native</td>
+<td>hevc</td>
+<td>1.697</td>
+<td>94.618</td>
+<td>55.756</td>
+<td>36.5%</td>
+<td>0.019</td>
+<td><span class='badge pass'>PASS</span></td>
+</tr>
+<tr class='fail'>
+<td>h264_baseline</td>
+<td>upscaled_3840x2160</td>
+<td>h264</td>
+<td>2.674</td>
+<td>80.368</td>
+<td>30.056</td>
+<td>0.0%</td>
+<td>0.000</td>
+<td><span class='badge fail'>FAIL</span></td>
+</tr>
+<tr class='fail'>
+<td>hevc_low</td>
+<td>upscaled_3840x2160</td>
+<td>hevc</td>
+<td>0.935</td>
+<td>78.329</td>
+<td>83.774</td>
+<td>65.0%</td>
+<td>-2.039</td>
+<td><span class='badge fail'>FAIL</span></td>
+</tr>
+<tr class='fail'>
+<td>hevc_medium</td>
+<td>upscaled_3840x2160</td>
+<td>hevc</td>
+<td>1.697</td>
+<td>81.026</td>
+<td>47.746</td>
+<td>36.5%</td>
+<td>0.657</td>
+<td><span class='badge fail'>FAIL</span></td>
+</tr>
+</table>
+</div>
+<div class="card">
+<h2>Interpretation Notes</h2>
+<ul>
+<li>Native tests scale the source down to the encoded rendition resolution.</li>
+<li>Upscaled tests scale the encoded rendition up to the target display resolution.</li>
+<li>Mean VMAF gives the average quality score, but Min VMAF helps identify worst-frame quality drops.</li>
+<li>PSNR Avg is a pixel-error metric reported in dB; higher is better, but it is less perceptual than VMAF.</li>
+<li>SSIM All is a structural similarity metric from 0 to 1; higher is better.</li>
+<li>Precheck WARN means duration or frame-rate mismatches were detected and should be reviewed.</li>
+<li>Quality WARN/FAIL is based on mean VMAF, minimum VMAF, and large quality drops.</li>
+<li>Use this report with visual inspection and playback testing.</li>
+</ul>
+</div>
+</body></html>
