@@ -559,36 +559,6 @@ Scale one input so both streams match before passing them into `libvmaf`.
 
 ---
 
-### Shell Line Continuation Issues
-
-Incorrect:
-
-```bash
-ffmpeg -i encoded.mp4 -i source.mov\
--filter_complex ...
-```
-
-The shell may interpret this as:
-
-```text
-source.mov-filter_complex
-```
-
-Correct:
-
-```bash
-ffmpeg -i encoded.mp4 -i source.mov \
--filter_complex "..." \
--f null -
-```
-
-On macOS/zsh:
-
-- Do not put blank lines between continued lines.
-- The backslash `\` must be the final character on the line.
-
----
-
 ## How This Helps Encoding Decisions
 
 The report can help answer:
